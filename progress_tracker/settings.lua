@@ -5,9 +5,44 @@ local mod_id = "progress_tracker"
 mod_settings_version = 1
 mod_settings = {
     {
-        id = "SPOILER_FREE",
+        id = "BOSS_LOCATIONS",
         ui_name = "Uncheck to show boss locations",
         ui_description = "Disabling this shows the location name of where bosses are located.",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
+    {
+        id = "ALTAR_SECRETS",
+        ui_name = "Uncheck to show altar secrets",
+        ui_description = "Disabling this shows pretty much the exact thing you need to do.",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
+    {
+        id = "TRANSFORMATION_SECRETS",
+        ui_name = "Uncheck to show transformation secrets",
+        ui_description = "Disabling this shows pretty much the exact thing you need to do.",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
+    {
+        id = "MOON_SECRETS",
+        ui_name = "Uncheck to show moon secrets",
+        ui_description = "Disabling this shows pretty much the exact thing you need to do.",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
+    {
+        id = "SUN_SECRETS",
+        ui_name = "Uncheck to show sun secrets",
+        ui_description = "Disabling this shows pretty much the exact thing you need to do.",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
+    {
+        id = "OTHER_SECRETS",
+        ui_name = "Uncheck to show other secrets",
+        ui_description = "Disabling this shows pretty much the exact thing you need to do.",
         value_default = true,
         scope = MOD_SETTING_SCOPE_RUNTIME,
     },
