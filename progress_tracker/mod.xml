@@ -3,4 +3,8 @@
     description="Tracks your tree achievements with a simple mod. Press F6 to enable."
     on_enabled="init.lua"
 >
+<Files>
+        <File>files/settings.lua</File>
+        <File>files/ui.lua</File>
+    </Files>
 </Mod>

@@ -1,3 +1,4 @@
+local mod_id = "progress_tracker"
 local current_page = 1
 local items_per_page = 15
 
@@ -5,9 +6,11 @@ function draw_achievement_ui()
     local gui = GuiCreate()
     GuiStartFrame(gui)
 
+    local spoiler_free_enabled = ModSettingGet(mod_id .. "." .. "SPOILER_FREE")
+
     -- Achievement data
     local achievements = {
-        {name = "Sacrifice a Chess to the altar", flag = "misc_chest_rain"},
+        {name = "Sacrifice a Chest to the altar", flag = "misc_chest_rain"},
         {name = "Sacrifice a Utility Box to the altar", flag = "misc_util_rain"},
         {name = "Sacrifice a Worm Crystal to the altar", flag = "misc_worm_rain"},
         {name = "Sacrifice a Greed Cursed Crystal to the altar", flag = "misc_greed_rain"},
@@ -40,19 +43,19 @@ function draw_achievement_ui()
         {name = "Beat the game by activating the Mountain Altar with 33+ Orbs, only possible in NG+", flag = "progress_ending2"},
         {name = "Beat the game after reaching New Game+++", flag = "progress_newgameplusplus3"},
         {name = "Beat the game in Nightmare mode", flag = "progress_nightmare"},
-        {name = "Defeat Suomuhauki, boss of the Underground Jungle", flag = "miniboss_dragon"},
-        {name = "Defeat Kolmisilman koipi, boss of the Pyramid to the east", flag = "miniboss_limbs"},
-        {name = "Defeat Kolmisilman sydan, boss of the Meat Realm", flag = "miniboss_meat"},
-        {name = "Defeat Unohdettu, boss of the Forgotten cave", flag = "miniboss_ghost"},
-        {name = "Defeat Sauvojev tuntija, a boss that protects the Orb across the lava lake bridge", flag = "miniboss_pit"},
-        {name = "Defeat Ylialkemisti, boss of the Ancient Labratory", flag = "miniboss_alchemist"},
-        {name = "Defeat Kolmisilman silma, boss of the Power Plant", flag = "miniboss_robot"},
-        {name = "Defeat Mestarien mestari, boss of the Wizards Cave", flag = "miniboss_wizard"},
-        {name = "Defeat Limatoukka, boss of the Meat Realm nesting inside a giant skull", flag = "miniboss_maggot"},
-        {name = "Defeat Syvaolento, boss of the Lake", flag = "miniboss_fish"},
-        {name = "Defeat Tapion vasalli, boss of the Lake Island", flag = "miniboss_islandspirit"},
+        {name = "Defeat Suomuhauki, boss of the Underground Jungle", spoiler_free = "Defeat Suomuhauki", flag = "miniboss_dragon"},
+        {name = "Defeat Kolmisilman koipi, boss of the Pyramid to the east", spoiler_free = "Defeat Kolmisilman koipi", flag = "miniboss_limbs"},
+        {name = "Defeat Kolmisilman sydan, boss of the Meat Realm", spoiler_free = "Defeat Kolmisilman sydan", flag = "miniboss_meat"},
+        {name = "Defeat Unohdettu, boss of the Forgotten cave", spoiler_free = "Defeat Unohdettu", flag = "miniboss_ghost"},
+        {name = "Defeat Sauvojev tuntija, a boss that protects the Orb across the lava lake bridge", spoiler_free = "Defeat Sauvojev tuntija", flag = "miniboss_pit"},
+        {name = "Defeat Ylialkemisti, boss of the Ancient Labratory", spoiler_free = "Defeat Ylialkemisti", flag = "miniboss_alchemist"},
+        {name = "Defeat Kolmisilman silma, boss of the Power Plant", spoiler_free = "Defeat Kolmisilman silma", flag = "miniboss_robot"},
+        {name = "Defeat Mestarien mestari, boss of the Wizards Cave", spoiler_free = "Defeat Mestarien mestari", flag = "miniboss_wizard"},
+        {name = "Defeat Limatoukka, boss of the Meat Realm nesting inside a giant skull", spoiler_free = "Defeat Limatoukka", flag = "miniboss_maggot"},
+        {name = "Defeat Syvaolento, boss of the Lake", spoiler_free = "Defeat Syvaolento", flag = "miniboss_fish"},
+        {name = "Defeat Tapion vasalli, boss of the Lake Island", spoiler_free = "Defeat Tapion vasalli", flag = "miniboss_islandspirit"},
         {name = "Defeat Tapion vasalli after killing 300+ helpless creatures", flag = "miniboss_threelk"},
-        {name = "Defeat the Gate Guardians, guarding the entrance to the Wizards Cave", flag = "miniboss_gate_monsters"},
+        {name = "Defeat the Gate Guardians, guarding the entrance to the Wizards Cave", spoiler_free = "Defeat the Gate Guardians", flag = "miniboss_gate_monsters"},
         {name = "Defeat Toveri", flag = "final_secret_orb3"},
         {name = "Defeat Kivi", flag = "miniboss_sky"},
         {name = "Defeat Kolmisilma, the final boss", flag = "boss_centipede"},
@@ -87,11 +90,19 @@ function draw_achievement_ui()
 
     local missing_achievements = {}
     local unlocked_achievements = {}
+
     for _, a in ipairs(achievements) do
+        local display_name = a.name
+        if spoiler_free_enabled and a.spoiler_free then
+            display_name = a.spoiler_free
+        end
+
+        local ach_copy = {name = display_name, flag = a.flag}
+
         if HasFlagPersistent(a.flag) then
-            table.insert(unlocked_achievements, a)
+            table.insert(unlocked_achievements, ach_copy)
         else
-            table.insert(missing_achievements, a)
+            table.insert(missing_achievements, ach_copy)
         end
     end
 
